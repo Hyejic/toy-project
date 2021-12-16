@@ -1,0 +1,225 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css');
+
+
+html {
+  font-size: 0.2667vw;
+  color: #000;
+}
+body{
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 400;
+  background-color: #E5E5E5;
+}
+
+/* common */
+img {
+  width: 100%;
+}
+.ir-blind {
+  height: 1px;
+  width: 1px;
+  position: absolute;
+  overflow: hidden;
+  clip: rect(1px 1px 1px 1px);
+  margin: 0;
+}
+.btn {
+  padding: 0;
+  font-size: 1px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+
+/* layout */
+.wrapper {
+  height: 100vh;
+  padding-top: 56em;
+}
+.account {
+
+}
+.account header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 21em 0 27em;
+}
+.account-img {
+  display: block;
+  width: 43px;
+  height: 43px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.account-nickname {
+ font-size: 18em;
+}
+.btn-cont {
+
+}
+.btn-qr {
+  width: 24em;
+  height: 21em;
+  background: url('./../images/btn_qr.png') no-repeat 0 0/cover;
+}
+.btn-search {
+  margin-left: 18em;
+  width: 24em;
+  height: 21em;
+  background: url('./../images/btn_search.png') no-repeat 0 0/cover;
+}
+.account-section {
+  padding: 33em 0 21em;
+}
+.account-cont {
+  position: relative;
+  margin: 0 48em;
+  padding: 18em 0 9em;
+  background-color: #FFFFFF;
+  border-radius: 12em;
+  text-align: center;
+}
+.account-cont .btn-send {
+  position: absolute;
+  top: 12rem;
+  right: 12rem;
+  padding: 5rem;
+  font-size: 14em;
+}
+.account-cont strong{
+  display: block;
+}
+.account-cont .account-num {
+  font-size: 14em;
+  color: #858585;
+}
+.account-cont .account-total-cost {
+  margin-top: 25rem;
+  font-size: 24em;
+}
+.account-cont .account-total-cost span {
+  margin-left: -6rem;
+  font-size: 0.5em;
+}
+.account-cont .progress-cont {
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  margin-top: 10em;
+}
+.account-cont .progress-cont .bar {
+  position: relative;
+  width: 202em;
+  height: 6em;
+  margin-left: 18rem;
+  background: #C4C4C4;
+  border-radius: 3em;
+}
+.account-cont .progress-cont .bar .progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60%;
+  height: 100%;
+  background: #FFDB4C;
+  border-radius: 3em;
+}
+.account-cont .progress-cont .bar .limit {
+  position: absolute;
+  top: 50%;
+  left: 80%;
+  width: 4em;
+  height: 17em;
+  margin-top: -8em;
+  background: #FF5F00;
+  border-radius: 3em;
+}
+.account-cont .progress-cont .btn-manage {
+  width: 24em;
+  height: 24em;
+  margin-left: 7em;
+  background: url('./../images/btn_chart.png') no-repeat 0 0/contain; 
+  background-size: 14em;
+  background-position: center bottom;
+}
+.account-cont .progress-cont .btn-manage span{
+  width: 14em;
+  height: 14em;
+}
+.account-cont .account-desc {
+  margin-top: 1.2em;
+  font-size: 14em;
+  color: #858585;
+}
+.account-section aside {
+  padding-top: 28rem;
+  font-size: 14em;
+  text-align: center;
+}
+.account-section aside a {
+  color: #000;
+}
+
+/* nav */
+nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  /* justify-content: space-around; */
+  width: 100%;
+  padding: 0 30em 0 45em;
+  height: 76em;
+  background: linear-gradient(180deg, #00BDB2 11.35%, #C4E7B8 139.96%);
+}
+nav .btn {
+  width: 30em;
+  height: 30em;
+}
+nav .btn + .btn {
+  margin-left: 60em;
+}
+nav .btn-home {
+  background: url('./../images/nav_btn_home.png') no-repeat;
+  background-size: 23em 20em;
+  background-position: center;
+}
+nav .btn-home.active {
+  background: url('./../images/nav_btn_home-active.png') no-repeat;
+  background-size: 23em 20em;
+  background-position: center;
+}
+nav .btn-arrow {
+  background: url('./../images/nav_btn_arrow.png') no-repeat;
+  background-size: 30em 23em;
+  background-position: center;
+}
+nav .btn-arrow.active {
+  background: url('./../images/nav_btn_arrow-active.png') no-repeat;
+  background-size: 30em 23em;
+  background-position: center;
+}
+nav .btn-message {
+  background: url('./../images/nav_btn_message.png') no-repeat;
+  background-size: 23em 24em;
+  background-position: center;
+}
+nav .btn-message.active {
+  background: url('./../images/nav_btn_message-active.png') no-repeat;
+  background-size: 23em 24em;
+  background-position: center;
+}
+nav .btn-more {
+  background: url('./../images/nav_btn_more.png') no-repeat;
+  background-size: 26em 6em;
+  background-position: center;
+}
+nav .btn-more.active {
+  background: url('./../images/nav_btn_more-active.png') no-repeat;
+  background-size: 26em 6em;
+  background-position: center;
+}

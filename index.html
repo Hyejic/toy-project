@@ -5,87 +5,97 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css"> -->
   <link rel="stylesheet" href="./css/style.css">
 
   <script src="./js/main.js"></script>
-  <title>Document</title>
+  <title>KDT BANK</title>
 </head>
 <body>
+
   <div class="wrapper">
-    <!-- 헤더 -->
-    <header>
-      <a href=""><img src="" alt="프로필 이미지" /></a>
-      <h1>제목</h1>
-      <div class="btn-cont">
-        <button class="btn btn-qr">바코드</button>
-        <button class="btn btn-search">검색</button>
-      </div>
-    </header>
-
-    <!-- 계좌번호 섹션 -->
-    <section class="account-section">
-      <div class="account-cont">
-        <strong>23-2321117-34773</strong>
-        <button class="btn btn-send">이체</button>
-        <strong>440,000 <span>원</span></strong>
-        <div class="progress-cont">
-          <div class="bar">
-            <div class="progress"></div>
-            <div class="limit"></div>
-          </div>
-          <button>지출관리</button>
+    <div class="account">
+      <!-- 헤더 -->
+      <header>
+        <a class="account-img" href="javascript:void(0)"><img src="./images/img_user01.png" alt="프로필 이미지" /></a>
+        <h1 class="account-nickname">생활비</h1>
+        <div class="btn-cont">
+          <button class="btn btn-qr"><span class="ir-blind">바코드</span></button>
+          <button class="btn btn-search"><span class="ir-blind">검색</span></button>
         </div>
-        <span>5일 동안 210,000원 남음</span>
-      </div>
-      <aside>지금 낮은 이자로 대출~~</aside>
-    </section>
-
-    <!-- 지출내역 섹션 -->
-    <section class="spend-section">
-      <div class="save-cont">
-        <ul class="save-list">
-          <li class="save-bar">
-            <div class="save-progress"></div>
-            <span class="save-name">여행가자</span>
-            <span class="save-money">금액</span>
+      </header>
+  
+      <!-- 계좌번호 섹션 -->
+      <section class="account-section">
+        <div class="account-cont">
+          <strong class="account-num">23-2321117-34773</strong>
+          <button class="btn btn-send">이체</button>
+          <strong class="account-total-cost">440,000 <span>원</span></strong>
+          <div class="progress-cont">
+            <div class="bar">
+              <div class="progress"></div>
+              <div class="limit"></div>
+            </div>
+            <button class="btn btn-manage"><span class="ir-blind">지출관리</span></button>
+          </div>
+          <p class="account-desc">5일 동안 210,000원 남음</p>
+        </div>
+        <aside>지금 낮은 이자로 생활대출을 신청하세요! <a href="javascript:void(0)">Go</a></aside>
+      </section>
+  
+      <!-- 지출내역 섹션 -->
+      <section class="spend-section">
+        <div class="save-cont">
+          <ul class="save-list">
+            <li class="save-bar">
+              <div class="save-progress"></div>
+              <span class="save-name">여행가자</span>
+              <span class="save-money">금액</span>
+            </li>
+          </ul>
+  
+          <div class="save-add">
+            <button class="btn btn-add">
+              <span> 저금통 추가하기</span>
+            </button>
+          </div>
+        </div>
+  
+        <ul class="day-cont">
+          <li class="day-list">
+            <strong class="day">오늘</strong>
+            <span class="total">12000원 지출~~</span>
+            <ul class="spend-cont">
+              <li class="spend-list">
+                <span class="spend-title">미스터피자</span>
+                <span class="spend-cost">32,000</span>
+              </li>
+              <li class="spend-list deposit">
+                <span class="spend-title">최혜지</span>
+                <span class="spend-cost">+ 20,000</span>
+              </li>
+            </ul>
           </li>
         </ul>
-
-        <div class="save-add">
-          <button class="btn btn-add">
-            <span> 저금통 추가하기</span>
-          </button>
-        </div>
-      </div>
-
-      <ul class="day-cont">
-        <li class="day-list">
-          <strong class="day">오늘</strong>
-          <span class="total">12000원 지출~~</span>
-
-          <ul class="spend-cont">
-            <li class="spend-list">
-              <span class="spend-title">미스터피자</span>
-              <span class="spend-cost">32,000</span>
-            </li>
-            <li class="spend-list deposit">
-              <span class="spend-title">최혜지</span>
-              <span class="spend-cost">+ 20,000</span>
-            </li> 
-          </ul>
-        </li>
-      </ul>
-    </section>
+      </section>
+    </div>
   </div>
 
   <!-- 하단 메뉴바 -->
   <nav>
-    <ul>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-    </ul>
+      <button class="btn btn-home active">
+        <span class="ir-blind">home</span>
+      </button>
+      <button class="btn btn-arrow">
+        <span class="ir-blind">arrow</span>
+      </button>
+      <button class="btn btn-message">
+        <span class="ir-blind">message</span>
+      </button>
+      <button class="btn btn-more">
+        <span class="ir-blind">more</span>
+      </button>
   </nav>
+
 </body>
 </html>
