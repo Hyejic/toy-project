@@ -130,10 +130,11 @@ img {
   background: #FFDB4C;
   border-radius: 3em;
 }
-.account-cont .progress-cont .bar .limit {
+.account-cont .progress-cont .bar .progress::after {
+  content:'';
   position: absolute;
   top: 50%;
-  left: 72%;
+  left: 100%;
   width: 4em;
   height: 17em;
   margin-top: -8em;
@@ -147,10 +148,6 @@ img {
   background: url('./../images/btn_chart.png') no-repeat 0 0/contain; 
   background-size: 14em;
   background-position: center bottom;
-}
-.account-cont .progress-cont .btn-manage span{
-  width: 14em;
-  height: 14em;
 }
 .account-cont .account-desc {
   margin-top: 1.2em;
