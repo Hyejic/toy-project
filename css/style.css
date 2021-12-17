@@ -9,7 +9,7 @@ html {
 body{
   font-family: 'Noto Sans KR', sans-serif;
   font-weight: 400;
-  background-color: #E5E5E5;
+  background-color: #EEECE5;
 }
 
 /* common */
@@ -37,6 +37,7 @@ img {
 .wrapper {
   height: 100vh;
   padding-top: 56em;
+  box-sizing: border-box;
 }
 .account {
 
@@ -96,13 +97,15 @@ img {
   font-size: 14em;
   color: #858585;
 }
-.account-cont .account-total-cost {
+.account-cont .account-money {
+  display: block;
   margin-top: 25rem;
-  font-size: 24em;
+  font-size: 14em;
 }
-.account-cont .account-total-cost span {
-  margin-left: -6rem;
-  font-size: 0.5em;
+.account-cont .account-money strong {
+  display: inline-block;
+  font-size: 1.7em;
+  letter-spacing: 0.1em;
 }
 .account-cont .progress-cont {
   display: flex;
@@ -122,7 +125,7 @@ img {
   position: absolute;
   top: 0;
   left: 0;
-  width: 60%;
+  width: 72%;
   height: 100%;
   background: #FFDB4C;
   border-radius: 3em;
@@ -130,7 +133,7 @@ img {
 .account-cont .progress-cont .bar .limit {
   position: absolute;
   top: 50%;
-  left: 80%;
+  left: 72%;
   width: 4em;
   height: 17em;
   margin-top: -8em;
@@ -161,6 +164,149 @@ img {
 }
 .account-section aside a {
   color: #000;
+}
+
+/* 지출내역 */
+.spend-section {
+  position: fixed;
+  top: 354em;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: calc(100vh - 176em);
+  padding: 25em 32em 0;
+  margin-bottom: 76em;
+  background: #F5F5F5;
+  box-shadow: 0em -5em 14em rgba(189, 144, 28, 0.08);
+  border-radius: 30em 30em 0em 0em;
+  box-sizing: border-box;
+  overflow: hidden;
+  -ms-overflow-style: none;
+  transition: top .5s ease-in-out;
+}
+.spend-section.open {
+  top: 100em;
+  overflow: auto;
+}
+.spend-section::-webkit-scrollbar {
+  display:none; 
+}
+.spend-section::before {
+  content:'';
+  position: absolute;
+  top: 4em;
+  left: 50%;
+  width: 48em;
+  height: 2em;
+  margin-left: -24em;
+  background-color: #C4C4C4;
+  border-radius: 4em;
+}
+.save-cont {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+}
+.save-cont::-webkit-scrollbar {
+  display:none; 
+}
+.save-list {
+  display: flex;
+  flex: 0 0 auto;
+}
+.save-bar{
+  position: relative;
+  width: 162em;
+  height: 47em;
+  background-color: #DADADA;
+  border-radius: 6em;
+  overflow: hidden;
+}
+.save-bar + .save-bar {
+  margin-left : 13em;
+}
+.save-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 70%;
+  height: 100%;
+  background-color: #FF5F00;
+}
+.save-name,
+.save-money {
+  position: relative;
+  display: block;
+  margin-top: 8rem;
+  margin-left: 13rem;
+  font-size: 12em;
+  color: #fff;
+  z-index: 1;
+}
+.save-money {
+  margin-top: 5rem;
+}
+.save-add {
+  flex: 0 0 auto;
+  margin-left: 19em;
+}
+.save-add .btn-add {
+  position: relative;
+  color: #FF5F00;
+  font-size: 12em;
+  padding-left: 30rem;
+}
+.save-add .btn-add::before {
+  content:'';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 22rem;
+  height: 22rem;
+  margin-top: -11rem;
+  background: url('./../images/btn_add.png') no-repeat center/cover;
+}
+.day-cont {
+  margin-top: 20em;
+  padding: 0 4em 20em 4em;
+}
+.day-list + .day-list {
+  margin-top: 38em;
+}
+.day-list .day-summary{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.day-summary .day {
+  font-size: 14em;
+  font-weight: 700;
+  color: #000;
+}
+.day-summary .total {
+  font-size: 14em;
+  color: #B4B4B4;
+}
+.spend-cont {
+  margin-top: 11em;
+}
+.spend-cont .spend-list {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 7rem;
+  font-size: 18em;
+  font-weight: 300;
+  line-height: 1.48;
+  color: #444;
+  border-bottom: 1px solid #DCDCDC;
+}
+.spend-cont .spend-list + .spend-list {
+  margin-top: 8rem;
+}
+.spend-cont .spend-list.deposit .spend-cost {
+  color: #FF5F00;
 }
 
 /* nav */
