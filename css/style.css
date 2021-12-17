@@ -130,16 +130,26 @@ img {
   background: #FFDB4C;
   border-radius: 3em;
 }
+.account-cont .progress-cont .bar .progress::before,
 .account-cont .progress-cont .bar .progress::after {
   content:'';
   position: absolute;
   top: 50%;
   left: 100%;
+  border-radius: 3em;
+}
+.account-cont .progress-cont .bar .progress::before {
+  width: 8em;
+  height: 21em;
+  margin-top: -10em;
+  background: #FFF;
+}
+.account-cont .progress-cont .bar .progress::after {
   width: 4em;
   height: 17em;
   margin-top: -8em;
+  margin-left: 2em;
   background: #FF5F00;
-  border-radius: 3em;
 }
 .account-cont .progress-cont .btn-manage {
   width: 24em;
