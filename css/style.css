@@ -188,17 +188,21 @@ img {
   border-radius: 30em 30em 0em 0em;
   box-sizing: border-box;
   overflow: hidden;
-  -ms-overflow-style: none;
   transition: top .5s ease-in-out;
 }
 .spend-section.open {
   top: 100em;
-  overflow: auto;
 }
-.spend-section::-webkit-scrollbar {
-  display:none; 
+.spend-section .dragbar{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 100em;
+  height: 25em;
 }
-.spend-section::before {
+.spend-section .dragbar::before {
   content:'';
   position: absolute;
   top: 4em;
@@ -278,6 +282,15 @@ img {
 .day-cont {
   margin-top: 20em;
   padding: 0 4em 20em 4em;
+  max-height: calc(100% - 87em);
+  -ms-overflow-style: none;
+  overflow-y: hidden;
+}
+.day-cont::-webkit-scrollbar {
+  display:none; 
+}
+.spend-section.open .day-cont {
+  overflow-y: auto;
 }
 .day-list + .day-list {
   margin-top: 38em;
@@ -323,18 +336,16 @@ nav {
   left: 0;
   display: flex;
   align-items: center;
-  /* justify-content: space-around; */
+  justify-content: space-between;
   width: 100%;
-  padding: 0 30em 0 45em;
+  padding: 0 30em 0 30em;
   height: 76em;
   background: linear-gradient(180deg, #00BDB2 11.35%, #C4E7B8 139.96%);
+  box-sizing: border-box;
 }
 nav .btn {
   width: 30em;
   height: 30em;
-}
-nav .btn + .btn {
-  margin-left: 60em;
 }
 nav .btn-home {
   background: url('./../images/nav_btn_home.png') no-repeat;
