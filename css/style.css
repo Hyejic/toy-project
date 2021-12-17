@@ -7,6 +7,8 @@ html {
   color: #000;
 }
 body{
+  position: relative;
+  height: 100vh;
   font-family: 'Noto Sans KR', sans-serif;
   font-weight: 400;
   background-color: #EEECE5;
@@ -35,12 +37,19 @@ img {
 
 /* layout */
 .wrapper {
-  height: 100vh;
+  display: flex;
+  width: 100%;
+  height: 100%;
   padding-top: 56em;
   box-sizing: border-box;
+  overflow: hidden;
 }
 .account {
-
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 56em);
+  overflow: hidden;
+  flex: 0 0 auto;
 }
 .account header{
   display: flex;
@@ -175,8 +184,8 @@ img {
 
 /* 지출내역 */
 .spend-section {
-  position: fixed;
-  top: 354em;
+  position: absolute;
+  top: 297em;
   left: 0;
   right: 0;
   width: 100%;
