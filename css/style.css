@@ -257,6 +257,7 @@ img {
 .save-cont {
   display: flex;
   flex-wrap: nowrap;
+  min-height: 47em;
   align-items: center;
   overflow-x: auto;
   -ms-overflow-style: none;

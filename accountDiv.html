@@ -1,40 +1,16 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <link rel="stylesheet" href="./css/style.css">
+  <title>Document</title>
 
   <script src="./js/account.js"></script>
   <script src="./js/main.js"></script>
-  <title>KDT BANK</title>
 </head>
 <body>
-
-  <div class="wrapper slider">
-    <div class="slider-inner">
-    </div>
-  </div>
-
-  <!-- 하단 메뉴바 -->
-  <nav>
-    <button class="btn btn-home active">
-      <span class="ir-blind">home</span>
-    </button>
-    <button class="btn btn-arrow">
-      <span class="ir-blind">arrow</span>
-    </button>
-    <button class="btn btn-message">
-      <span class="ir-blind">message</span>
-    </button>
-    <button class="btn btn-more">
-      <span class="ir-blind">more</span>
-    </button>
-  </nav>
-
-  <div class="account" hidden>
+  <div class="account" id="accountDiv">
     <!-- 헤더 -->
     <header>
       <a class="account-img" href="javascript:void(0)"><img src="./images/img_user01.png" alt="프로필 이미지" /></a>
@@ -67,11 +43,16 @@
       <div class="dragbar"></div>
       <div class="save-cont">
         <ul class="save-list">
-          <!-- <li class="save-bar">
+          <li class="save-bar">
             <div class="save-progress"></div>
             <span class="save-name"></span>
             <span class="save-money"></span>
-          </li> -->
+          </li>
+          <li class="save-bar">
+            <div class="save-progress"></div>
+            <span class="save-name"></span>
+            <span class="save-money"></span>
+          </li>
         </ul>
         <div class="save-add">
           <button class="btn btn-add">
@@ -95,6 +76,5 @@
       </ul>
     </section>
   </div>
-
 </body>
 </html>
