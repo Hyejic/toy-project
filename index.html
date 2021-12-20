@@ -34,6 +34,7 @@
     </button>
   </nav>
 
+  <!-- 계좌 -->
   <div class="account" hidden>
     <!-- 헤더 -->
     <header>
@@ -67,11 +68,6 @@
       <div class="dragbar"></div>
       <div class="save-cont">
         <ul class="save-list">
-          <!-- <li class="save-bar">
-            <div class="save-progress"></div>
-            <span class="save-name"></span>
-            <span class="save-money"></span>
-          </li> -->
         </ul>
         <div class="save-add">
           <button class="btn btn-add">
@@ -80,21 +76,32 @@
         </div>
       </div>
       <ul class="day-cont">
-        <li class="day-list">
-          <div class="day-summary">
-            <strong class="day"></strong>
-            <span class="total"></span>
-          </div>
-          <ul class="spend-cont">
-            <li class="spend-list">
-              <span class="spend-title"></span>
-              <span class="spend-cost"></span>
-            </li>
-          </ul>
-        </li>
       </ul>
     </section>
   </div>
+  <!--// 계좌 -->
 
+  <!-- 저금통 -->
+  <li class="save-bar" hidden>
+    <div class="save-progress"></div>
+    <span class="save-name"></span>
+    <span class="save-money"></span>
+  </li>
+  <!--// 저금통 -->
+
+  <!-- 일일 내역 -->
+  <li class="day-list" hidden>
+    <div class="day-summary">
+      <strong class="day"></strong>
+      <span class="total"></span>
+    </div>
+    <ul class="spend-cont">
+      <li class="spend-list">
+        <span class="spend-title"></span>
+        <span class="spend-cost"></span>
+      </li>
+    </ul>
+  </li>
+  <!--// 일일 내역 -->
 </body>
 </html>

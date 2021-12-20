@@ -36,62 +36,66 @@ const getData = async () => {
 
   function accoutSet() {
     
-    // accout div
-    for(let i = 0; i < accountArr.length; i++){
+    // 계좌
+    for(let index = 0; index < accountArr.length; index++){
+    // for(const index = 0; index < accountArr.length; index++){
       const slideInner = document.querySelector('.slider-inner');
       const accountDivClone = document.querySelector('.account').cloneNode(true);
-      // console.log(i)
       slideInner.appendChild(accountDivClone)
       document.querySelector('.account').hidden = false; 
       
       const accoutDiv = document.querySelectorAll('.account');
-      const totalMoney = accountArr[i].accountMoney;
-      const totalSpend = accountArr[i].totalSpend;
-      const limit = accountArr[i].limit;
+      const totalMoney = accountArr[index].accountMoney;
+      const totalSpend = accountArr[index].totalSpend;
+      const limit = accountArr[index].limit;
       const limitPer = totalSpend / limit * 100;
       const moneyLeft= limit - totalSpend;
       
-      accoutDiv[i].querySelector('.account-nickname').textContent = accountArr[i].accountName;
-      accoutDiv[i].querySelector('.account-num').textContent = accountArr[i].accountNumber;
-      accoutDiv[i].querySelector('.account-money strong').textContent = priceToString(totalMoney);
-      accoutDiv[i].querySelector('.progress').style.width = `${limitPer}%`;
-      accoutDiv[i].querySelector('.progress').style.backgroundColor = accountArr[i].progressColor;
-      accoutDiv[i].querySelector('.account-desc').textContent = `${date()}일 동안 ${priceToString(moneyLeft)}원 남음`;
-
-      const saveList = accoutDiv[i].querySelector('.save-list');
-      // const saveItem = document.querySelector('.save-bar').cloneNode(true);
-      // document.querySelector('.save-bar').hidden
-      // console.log(accountArr[i].saveList.length)
-      for(let j = 0; j < accountArr[i].saveList.length; j++){
-        console.log(accountArr[i].saveList[j].name)
-        const saveItem = document.createElement('li');
-        const saveProgress = document.createElement('div');
-        const saveName = document.createElement('span');
-        const saveMoney = document.createElement('span');
-
-        saveItem.className = "save-bar";
-        saveProgress.className = "save-progress";
-        saveName.className = "save-name";
-        saveName.textContent = accountArr[i].saveList[j].name;
-        saveMoney.className = "save-money";
-        saveName.textContent = accountArr[i].saveList[j].money;
-        // saveList.appendChild(saveItem)
-        console.log('@@@@@@@@@@@@@@@@@@@@@')
-      }
-
-
-      console.log('-------------------')
-
+      accoutDiv[index].querySelector('.account-nickname').textContent = accountArr[index].accountName;
+      accoutDiv[index].querySelector('.account-num').textContent = accountArr[index].accountNumber;
+      accoutDiv[index].querySelector('.account-money strong').textContent = priceToString(totalMoney);
+      accoutDiv[index].querySelector('.progress').style.width = `${limitPer}%`;
+      accoutDiv[index].querySelector('.progress').style.backgroundColor = accountArr[index].progressColor;
+      accoutDiv[index].querySelector('.account-desc').textContent = `${date()}일 동안 ${priceToString(moneyLeft)}원 남음`;
     }
 
+    // 저금통
+    for(let index = 0; index < accountArr.length; index++){
+      for(let saveListIndex = 0; saveListIndex < accountArr[index].saveList.length; saveListIndex++){
+        const accoutDiv = document.querySelectorAll('.account');
+        const saveListWrap = accoutDiv[index].querySelector('.save-list');
+        const saveItem = document.querySelector('.save-bar').cloneNode(true);
+        saveListWrap.appendChild(saveItem)
+        accoutDiv[index].querySelector('.save-bar').hidden = false; 
+        
+        const saveBarEls = accoutDiv[index].querySelectorAll('.save-bar');
+        saveBarEls[saveListIndex].querySelector('.save-progress').style.backgroundColor = accountArr[index].saveList[saveListIndex].color;
+        saveBarEls[saveListIndex].querySelector('.save-name').textContent = accountArr[index].saveList[saveListIndex].name;
+        saveBarEls[saveListIndex].querySelector('.save-money').textContent = accountArr[index].saveList[saveListIndex].money;
+      }
+    }
+
+    // 전체 사용 내역
+    for(let i = 0; i < accountArr.length; i++){
+      
+      const groupsList = accountArr[i].bankList.reduce((groups, dayList) => {
+        const date = dayList.date;
+        // console.log(date);
+        if(!groups[date]) {
+          groups[date] = [];
+        }
+        groups[date].push(dayList);
+        return groups;
+      }, {});
+      const groupArrays = Object.keys(groupsList).map((date) => {
+        return {
+          date,
+          dayLists: groupsList[date]
+        };
+      });
+      console.log(groupArrays);
+    }
   }
   accoutSet()
 }
 getData()
-
-// window.addEventListener('load',function(){
-  
-//   const accountDiv = document.querySelector('#accountDiv')
-//   console.log(accountDiv)
-
-// })
