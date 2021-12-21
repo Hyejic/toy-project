@@ -14,6 +14,7 @@ window.addEventListener('load', () => {
     const touch = e.touches[0];
     touchStartX = touch.clientX;
     touchStartY = touch.clientY;
+    console.log('ss')
   }
   function touchMove(e) {
     const touch = e.touches[0];
@@ -24,7 +25,9 @@ window.addEventListener('load', () => {
       moveY = touchStartY - presentY;
     }
   }
-
+  // document.addEventListener('touchstart', (e) => {
+  //   console.log(e.target)
+  // })
   // 사용내역 리스트 slide up,down
   dragBarLis.forEach((el) => {
     el.addEventListener('touchstart', () => {
