@@ -144,11 +144,7 @@ const getData = async () => {
     })
     const dayTextWrapEls = document.querySelectorAll('.day');
     dayTextWrapEls.forEach((el) => {
-      console.log(el.innerText)
-      if(el.innerText === "미래"){
-        console.log(el.parentNode.parentNode)
-        el.parentNode.parentNode.remove()
-      }
+      if(el.innerText === "미래") el.parentNode.parentNode.remove();
     })
   }
   accoutSet()
