@@ -39,19 +39,35 @@ const getData = async () => {
   }
 
   // 날짜 계산
-  const date = () => {
+  const dateLeft = () => {
     const now = new Date(); // 현재 날짜
     const nowYear = now.getFullYear(); // 현재 년
     const nowMonth = now.getMonth() + 1; // 현재 월
-    const nowDate = now.getDate(); // 현재 날짜
+    const nowDay = now.getDate(); // 현재 날짜
     const lastDate = new Date(nowYear, nowMonth, 0); //현재 날짜의 말일
-    const dateLeft = lastDate.getDate() - nowDate; // 남은 날짜 계산
+    const setDayLeft = lastDate.getDate() - nowDay; // 남은 날짜 계산
     // console.log(dateLeft)
 
-    return dateLeft;
+    return setDayLeft;
   }
-  date()
-
+  const dateReplace = (date) => {
+    const nowDate = new Date(); // 현재 날짜
+    const overDate = new Date(date); // 현재 날짜
+    const nowYear = nowDate.getFullYear(); // 현재 년
+    const nowMonth = nowDate.getMonth() + 1; // 현재 월
+    const nowDay = nowDate.getDate(); // 현재 날짜
+    const nowDateCombi = `${nowYear}-${nowMonth}-${nowDay}`
+    const yesterdayDateCombi = `${nowYear}-${nowMonth}-${nowDay-1}`
+    let setDate = date;
+    if(nowDateCombi === date){
+      setDate = "오늘";
+    }else if(yesterdayDateCombi === date){
+      setDate = "어제";
+    }else if(nowDate < overDate){
+      setDate = "미래";
+    }
+    return setDate;
+  }
   const accoutSet = () => {
     const inner = document.querySelector('.slider-inner');
 
@@ -73,7 +89,7 @@ const getData = async () => {
       accoutDiv[index].querySelector('.account-money strong').textContent = priceToString(totalMoney);
       accoutDiv[index].querySelector('.progress').style.width = `${limitPer}%`;
       accoutDiv[index].querySelector('.progress').style.backgroundColor = accountArr[index].progressColor;
-      accoutDiv[index].querySelector('.account-desc').textContent = `${date()}일 동안 ${priceToString(moneyLeft)}원 남음`;
+      accoutDiv[index].querySelector('.account-desc').textContent = `${dateLeft()}일 동안 ${priceToString(moneyLeft)}원 남음`;
 
     })
 
@@ -102,7 +118,7 @@ const getData = async () => {
         const dayListWrap = 
           `<li class="day-list">
             <div class="day-summary">
-              <strong class="day">${accoutEl[index].date}</strong>
+              <strong class="day">${dateReplace(accoutEl[index].date)}</strong>
               <span class="total"></span>
             </div>
             <ul class="spend-cont">
@@ -126,7 +142,16 @@ const getData = async () => {
         daySpendTotal.textContent = priceToString(daySpendMoney);
       }
     })
+    const dayTextWrapEls = document.querySelectorAll('.day');
+    dayTextWrapEls.forEach((el) => {
+      console.log(el.innerText)
+      if(el.innerText === "미래"){
+        console.log(el.parentNode.parentNode)
+        el.parentNode.parentNode.remove()
+      }
+    })
   }
   accoutSet()
+
 }
 getData()
