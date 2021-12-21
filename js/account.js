@@ -75,54 +75,55 @@ const getData = async () => {
       accoutDiv[index].querySelector('.progress').style.backgroundColor = accountArr[index].progressColor;
       accoutDiv[index].querySelector('.account-desc').textContent = `${date()}일 동안 ${priceToString(moneyLeft)}원 남음`;
 
-      // 저금통
-      const accountDivEls = inner.querySelectorAll('.account');
-      accountEl.saveList.forEach((saveListEl) => {
-        const piggyBankDiv = accountDivEls[index].querySelector('.save-list');
+    })
+
+    // 저금통
+    const accountDivEls = inner.querySelectorAll('.account');
+    accountDivEls.forEach((accountDivEl, index) => {
+      const piggyBankDiv = accountDivEl.querySelector('.save-list');
+      accountArr[index].saveList.forEach((saveListEl) => {
         const piggyBankProgress = saveListEl.money / saveListEl.target * 100;
         const backTickPiggyBank = 
-        `
-          <li class="save-bar">
+          `<li class="save-bar">
             <div class="save-progress" style="background-color:${saveListEl.color}; width:${piggyBankProgress}%"></div>
             <span class="save-name">${saveListEl.name}</span>
             <span class="save-money">${priceToString(saveListEl.money)}</span>
-          </li>
-        `
+          </li>`;
         piggyBankDiv.insertAdjacentHTML('beforeend',backTickPiggyBank);
       })
     })
 
     // 날짜 기준 array - 일일 사용 내역
     newGroupArrays.forEach((accoutEl, index) => {
-      // console.log(accoutEl)
       const accountDivEls = inner.querySelectorAll('.account');
       const dayContDiv = accountDivEls[index].querySelector('.day-cont');
-      
+
       for(let index = 0; index < accoutEl.length; index++){
         const dayListWrap = 
-        `
-          <li class="day-list">
+          `<li class="day-list">
             <div class="day-summary">
               <strong class="day">${accoutEl[index].date}</strong>
               <span class="total"></span>
             </div>
             <ul class="spend-cont">
             </ul>
-          </li>
-        `
+          </li>`;
         dayContDiv.insertAdjacentHTML('beforeend',dayListWrap);
+
         const dayListDiv = dayContDiv.querySelectorAll('.day-list');
         const spendCont = dayListDiv[index].querySelector('.spend-cont');
-        accoutEl[index].dayLists.forEach((el) => {
+        let daySpendMoney = 0;  
+        accoutEl[index].dayLists.forEach((dayListEl) => {
+          daySpendMoney += dayListEl.price;
           const dayList = 
-          `
-            <li class="spend-list">
-              <span class="spend-title">${el.history}</span>
-              <span class="spend-cost">${priceToString(el.price)}</span>
-            </li>
-          `
-          spendCont.insertAdjacentHTML('beforeend',dayList)
+            `<li class="spend-list">
+              <span class="spend-title">${dayListEl.history}</span>
+              <span class="spend-cost">${priceToString(dayListEl.price)}</span>
+            </li>`;
+          spendCont.insertAdjacentHTML('beforeend',dayList);
         })
+        const daySpendTotal = dayListDiv[index].querySelector('.total');
+        daySpendTotal.textContent = priceToString(daySpendMoney);
       }
     })
   }
