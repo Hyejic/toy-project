@@ -216,7 +216,6 @@ const getData = async () => {
   //slider 구현
   const slider = () => {
     // slider
-    const spendSecLis = document.querySelectorAll('.spend-section');
     const slider = document.querySelector('.slider');
     const sliderInner = document.querySelector('.slider-inner');
     const slideLis = sliderInner.querySelectorAll('.account');
@@ -257,6 +256,13 @@ const getData = async () => {
     const sliderWidth = liWidth * slideCloneLis.length;
     sliderInner.style.width = `${sliderWidth}px`;
     sliderInner.style.left = `${moveDist}px`;
+
+    const removeOpen = () => {
+      const spendSecLis = document.querySelectorAll('.spend-section');
+      spendSecLis.forEach((el) => {
+        el.classList.remove('open')
+      })
+    }
   
     const moveSlide = (e) => {
       const move = (direction) => {
@@ -265,32 +271,30 @@ const getData = async () => {
         sliderInner.style.transition = `all ${speedTime}ms ease`;
         sliderInner.style.left = `${moveDist}px`;
       }
-
-      spendSecLis.forEach((el) => {
-        el.classList.remove('open')
-      })
-      if (moveX > 50 || e.target.className === 'next') {
+      if (moveX > 100 || e.target.className === 'next') {
       // if (e.target.className === 'next') {
-          move(-1);
-          if (currentNum === slideCloneLis.length - 1) {
-            setTimeout(() => {
-              sliderInner.style.transition = 'none';
-              moveDist = -liWidth;
-              sliderInner.style.left = `${-liWidth}px`;
-              currentNum = 1;
-            }, speedTime);
-          }
-      } else if(moveX < -50 || e.target.className === 'prev') {
+        move(-1);
+        if (currentNum === slideCloneLis.length - 1) {
+          setTimeout(() => {
+            sliderInner.style.transition = 'none';
+            moveDist = -liWidth;
+            sliderInner.style.left = `${-liWidth}px`;
+            currentNum = 1;
+          }, speedTime);
+        }
+        removeOpen()
+      } else if(moveX < -100 || e.target.className === 'prev') {
       // } else {
-          move(1);
-          if (currentNum === 0) {
-            setTimeout(() => {
-              sliderInner.style.transition = 'none';
-              moveDist = -liWidth * (slideCloneLis.length - 2)
-              sliderInner.style.left = `${moveDist}px`;
-              currentNum = slideCloneLis.length - 2;
-            }, speedTime);
-          } 
+        move(1);
+        if (currentNum === 0) {
+          setTimeout(() => {
+            sliderInner.style.transition = 'none';
+            moveDist = -liWidth * (slideCloneLis.length - 2)
+            sliderInner.style.left = `${moveDist}px`;
+            currentNum = slideCloneLis.length - 2;
+          }, speedTime);
+        } 
+        removeOpen()
       }else {
         return false
       }
