@@ -1,3 +1,5 @@
+'use strict';
+
 let accountArr = [];
 let newGroupArrays = [];
 
@@ -14,30 +16,91 @@ const getData = async () => {
   .then((res) => res.json())
   .then((obj) => accountArr.push(obj));
 
-  //날짜별 사용내역 배열 생성
-  for(let index = 0; index < accountArr.length; index++){
-    const groupsList = accountArr[index].bankList.reduce((groups, dayList) => {
-      const date = dayList.date;
-      if(!groups[date]) {
-        groups[date] = [];
-      }
-      groups[date].push(dayList);
-      return groups;
-    }, {});
-    const groupArrays = Object.keys(groupsList).map((date) => {
-      return {
-        date,
-        dayLists: groupsList[date]
-      };
-    });
-    newGroupArrays.push(groupArrays)
+  // 드래그 방향 읽기
+  let touchStartX = 0;
+  let touchStartY = 0;
+  const touchStart = (e) => {
+    const touch = e.touches[0];
+    touchStartX = touch.clientX;
+    touchStartY = touch.clientY;
   }
+  let moveX = 0;
+  let moveY = 0;
+  const touchMove = (e) => {
+    const touch = e.touches[0];
+    let presentX = touch.clientX;
+    let presentY = touch.clientY;
+    if(touchStartY !== null){
+      moveX = touchStartX - presentX;
+      moveY = touchStartY - presentY;
+    }
+  }
+  // document event listener
+  const event = (() => {
+    let targetCheck = false;
 
+    document.addEventListener('touchstart', (e) => {
+      if(e.target.className === 'dragbar'){
+        targetCheck = true;
+        touchStart(e)
+      }
+    })
+    document.addEventListener('touchmove', (e) => {
+      if(e.target.className === 'dragbar'){
+        touchMove(e)
+      }
+    })
+    document.addEventListener('touchend', (e) => {
+      if(e.target.className === 'dragbar'){
+        if(targetCheck === true){
+          if(moveY > 0){
+            e.target.parentNode.classList.add('open');
+          }else{
+            e.target.parentNode.classList.remove('open');
+          }
+          targetCheck = false
+        }
+      }
+    })
+
+    // const saveCont = document.querySelector('.save-cont');
+    // saveCont.addEventListener('touchstart', (e) => {
+    //   e.stopPropagation()
+    //   console.log(e.target)
+    // })
+    // saveCont.addEventListener('touchmove', (e) => {
+    //   e.stopPropagation()
+    //   console.log(e.target)
+    // })
+    // saveCont.addEventListener('touchend', (e) => {
+    //   e.stopPropagation()
+    //   console.log(e.target)
+    // })
+  })()
+  //날짜별 사용내역 배열 생성
+  const daylistArrSet = (() => {
+    for(let index = 0; index < accountArr.length; index++){
+      const groupsList = accountArr[index].bankList.reduce((groups, dayList) => {
+        const date = dayList.date;
+        if(!groups[date]) {
+          groups[date] = [];
+        }
+        groups[date].push(dayList);
+        return groups;
+      }, {});
+      const groupArrays = Object.keys(groupsList).map((date) => {
+        return {
+          date,
+          dayLists: groupsList[date]
+        };
+      });
+      newGroupArrays.push(groupArrays)
+    }
+  })()
   // 천단위 콤마
   const priceToString = (price) => {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
-
   // 날짜 계산
   const dateLeft = () => {
     const now = new Date(); // 현재 날짜
@@ -50,6 +113,7 @@ const getData = async () => {
 
     return setDayLeft;
   }
+  // 날짜 바꾸기 '오늘','어제'
   const dateReplace = (date) => {
     const nowDate = new Date(); // 현재 날짜
     const overDate = new Date(date); // 현재 날짜
@@ -68,6 +132,7 @@ const getData = async () => {
     }
     return setDate;
   }
+  //계좌 화면 출력
   const accoutSet = () => {
     const inner = document.querySelector('.slider-inner');
 
@@ -148,6 +213,95 @@ const getData = async () => {
     })
   }
   accoutSet()
+  //slider 구현
+  const slider = () => {
+    // slider
+    const spendSecLis = document.querySelectorAll('.spend-section');
+    const slider = document.querySelector('.slider');
+    const sliderInner = document.querySelector('.slider-inner');
+    const slideLis = sliderInner.querySelectorAll('.account');
+    const arrowWrap = document.createElement('div');
+    const arrowPrev = document.createElement('a');
+    const arrowNext = document.createElement('a');
+  
+    slideLis.forEach(function(el) {
+      el.classList.add('slider_item');
+    })
+  
+    arrowWrap.className = 'arrow';
+    arrowPrev.className = 'prev';
+    arrowNext.className = 'next';
+    arrowPrev.textContent = '이전';
+    arrowNext.textContent = '다음';
+    arrowPrev.setAttribute('href','#');
+    arrowNext.setAttribute('href','#');
+  
+    slider.appendChild(arrowWrap);
+    slider.querySelector('.arrow').appendChild(arrowPrev);
+    slider.querySelector('.arrow').appendChild(arrowNext);
+  
+    // slider option
+    const moveButton = slider.querySelector('.arrow');
+    const liWidth = slideLis[0].clientWidth;
+    let moveDist = -liWidth;
+    let currentNum = 1;
+    let speedTime = 500;
+  
+    // 클론만들기
+    const cloneA = slideLis[0].cloneNode(true);
+    const cloneC = slideLis[slideLis.length - 1].cloneNode(true);
+    sliderInner.insertBefore(cloneC, slideLis[0]);
+    sliderInner.appendChild(cloneA);
+  
+    const slideCloneLis = sliderInner.querySelectorAll('.slider-inner > *');
+    const sliderWidth = liWidth * slideCloneLis.length;
+    sliderInner.style.width = `${sliderWidth}px`;
+    sliderInner.style.left = `${moveDist}px`;
+  
+    const moveSlide = (e) => {
+      const move = (direction) => {
+        currentNum += (-1 * direction);
+        moveDist += liWidth * direction;
+        sliderInner.style.transition = `all ${speedTime}ms ease`;
+        sliderInner.style.left = `${moveDist}px`;
+      }
 
+      spendSecLis.forEach((el) => {
+        el.classList.remove('open')
+      })
+      if (moveX > 50 || e.target.className === 'next') {
+      // if (e.target.className === 'next') {
+          move(-1);
+          if (currentNum === slideCloneLis.length - 1) {
+            setTimeout(() => {
+              sliderInner.style.transition = 'none';
+              moveDist = -liWidth;
+              sliderInner.style.left = `${-liWidth}px`;
+              currentNum = 1;
+            }, speedTime);
+          }
+      } else if(moveX < -50 || e.target.className === 'prev') {
+      // } else {
+          move(1);
+          if (currentNum === 0) {
+            setTimeout(() => {
+              sliderInner.style.transition = 'none';
+              moveDist = -liWidth * (slideCloneLis.length - 2)
+              sliderInner.style.left = `${moveDist}px`;
+              currentNum = slideCloneLis.length - 2;
+            }, speedTime);
+          } 
+      }else {
+        return false
+      }
+      moveX = 0;
+      moveY = 0;
+    }
+    slider.addEventListener('touchstart', touchStart);
+    slider.addEventListener('touchmove', touchMove);
+    slider.addEventListener('touchend', moveSlide);
+    // moveButton.addEventListener('click', moveSlide);
+  }
+  slider()
 }
 getData()
