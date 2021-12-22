@@ -35,7 +35,7 @@ const getData = async () => {
       moveY = touchStartY - presentY;
     }
   }
-  // document event listener
+  // 일일내역 slideup
   const event = (() => {
     let targetCheck = false;
 
@@ -62,20 +62,6 @@ const getData = async () => {
         }
       }
     })
-
-    // const saveCont = document.querySelector('.save-cont');
-    // saveCont.addEventListener('touchstart', (e) => {
-    //   e.stopPropagation()
-    //   console.log(e.target)
-    // })
-    // saveCont.addEventListener('touchmove', (e) => {
-    //   e.stopPropagation()
-    //   console.log(e.target)
-    // })
-    // saveCont.addEventListener('touchend', (e) => {
-    //   e.stopPropagation()
-    //   console.log(e.target)
-    // })
   })()
   //날짜별 사용내역 배열 생성
   const daylistArrSet = (() => {
@@ -213,6 +199,21 @@ const getData = async () => {
     })
   }
   accoutSet()
+  const saveContBubbling = () => {
+    const saveCont = document.querySelectorAll('.save-cont');
+    saveCont.forEach((el) => {
+      el.addEventListener('touchstart', (e) => {
+        e.stopPropagation()
+      })
+      el.addEventListener('touchmove', (e) => {
+         e.stopPropagation()
+      })
+      el.addEventListener('touchend', (e) => {
+         e.stopPropagation()
+      })
+    })
+  }
+  saveContBubbling()
   //slider 구현
   const slider = () => {
     // slider
@@ -260,7 +261,12 @@ const getData = async () => {
     const removeOpen = () => {
       const spendSecLis = document.querySelectorAll('.spend-section');
       spendSecLis.forEach((el) => {
-        el.classList.remove('open')
+        el.classList.remove('open');
+        setTimeout(() => {
+          el.querySelector('.day-cont').scrollTop = 0;
+          el.querySelector('.save-cont').scrollLeft = 0; 
+        },500)
+        
       })
     }
   
