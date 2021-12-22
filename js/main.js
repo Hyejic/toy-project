@@ -14,7 +14,6 @@ window.addEventListener('load', () => {
     const touch = e.touches[0];
     touchStartX = touch.clientX;
     touchStartY = touch.clientY;
-    console.log('ss')
   }
   function touchMove(e) {
     const touch = e.touches[0];
@@ -25,27 +24,50 @@ window.addEventListener('load', () => {
       moveY = touchStartY - presentY;
     }
   }
-  // document.addEventListener('touchstart', (e) => {
-  //   console.log(e.target)
-  // })
-  // 사용내역 리스트 slide up,down
-  dragBarLis.forEach((el) => {
-    el.addEventListener('touchstart', () => {
+  document.addEventListener('touchstart', (e) => {
+    if(e.target.className === 'dragbar'){
       targetCheck = true;
-    })
-    el.addEventListener('touchstart', touchStart);
-    el.addEventListener('touchmove', touchMove);
-    el.addEventListener('touchend', () => {
+      touchStart(e)
+    }
+  })
+  document.addEventListener('touchmove', (e) => {
+    if(e.target.className === 'dragbar'){
+      touchMove(e)
+    }
+  })
+  document.addEventListener('touchend', (el) => {
+    if(el.target.className === 'dragbar'){
       if(targetCheck === true){
         if(moveY > 0){
-          el.parentNode.classList.add('open');
+          el.target.parentNode.classList.add('open');
         }else{
-          el.parentNode.classList.remove('open');
+          el.target.parentNode.classList.remove('open');
         }
         targetCheck = false
       }
-    })
+    }
   })
+  // 사용내역 리스트 slide up,down
+  // dragBarLis.forEach((el) => {
+  //   el.addEventListener('touchstart', (e) => {
+  //     if(e.target.className === 'dragbar'){
+  //       targetCheck = true;
+  //       console.log(e.targetCheck)
+  //     }
+  //   })
+  //   el.addEventListener('touchstart', touchStart);
+  //   el.addEventListener('touchmove', touchMove);
+  //   el.addEventListener('touchend', () => {
+  //     if(targetCheck === true){
+  //       if(moveY > 0){
+  //         el.parentNode.classList.add('open');
+  //       }else{
+  //         el.parentNode.classList.remove('open');
+  //       }
+  //       targetCheck = false
+  //     }
+  //   })
+  // })
   
 
   // // slider
