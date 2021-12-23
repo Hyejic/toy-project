@@ -90,16 +90,13 @@ img {
 }
 .account-img {
   display: block;
-  width: 43px;
-  height: 43px;
+  width: 43em;
+  height: 43em;
   border-radius: 50%;
   overflow: hidden;
 }
 .account-nickname {
  font-size: 18em;
-}
-.btn-cont {
-
 }
 .btn-qr {
   width: 24em;
