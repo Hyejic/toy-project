@@ -202,6 +202,8 @@ const getData = async () => {
     })
   }
   accoutSet()
+
+  //저금통 영역 swipe 중복 이벤트 막기
   const saveContBubbling = () => {
     const saveCont = document.querySelectorAll('.save-cont');
     saveCont.forEach((el) => {
@@ -217,6 +219,7 @@ const getData = async () => {
     })
   }
   saveContBubbling()
+
   //slider 구현
   const slider = () => {
     // slider
@@ -313,7 +316,6 @@ const getData = async () => {
     slider.addEventListener('touchstart', touchStart);
     slider.addEventListener('touchmove', touchMove);
     slider.addEventListener('touchend', moveSlide);
-    // moveButton.addEventListener('click', moveSlide);
   }
   slider()
 }
