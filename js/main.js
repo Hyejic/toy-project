@@ -179,17 +179,20 @@ const getData = async () => {
 
         const dayListDiv = dayContDiv.querySelectorAll('.day-list');
         const spendCont = dayListDiv[index].querySelector('.spend-cont');
+        const daySpendTotal = dayListDiv[index].querySelector('.total');
         let daySpendMoney = 0;  
         accoutEl[index].dayLists.forEach((dayListEl) => {
-          daySpendMoney += dayListEl.price;
+          const depositValue = dayListEl.income === 'in' ? true : false;
+          const depositClass = depositValue ? 'deposit' : 'spending';
+          const depositText = depositValue ? '+' : '';
           const dayList = 
-            `<li class="spend-list">
-              <span class="spend-title">${dayListEl.history}</span>
-              <span class="spend-cost">${priceToString(dayListEl.price)}</span>
-            </li>`;
+          `<li class="spend-list ${depositClass}">
+            <span class="spend-title">${dayListEl.history}</span>
+            <span class="spend-cost">${depositText}${priceToString(dayListEl.price)}</span>
+          </li>`;
           spendCont.insertAdjacentHTML('beforeend',dayList);
+          daySpendMoney += depositValue ? 0 : dayListEl.price;
         })
-        const daySpendTotal = dayListDiv[index].querySelector('.total');
         daySpendTotal.textContent = priceToString(daySpendMoney);
       }
     })
