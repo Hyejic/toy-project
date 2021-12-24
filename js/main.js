@@ -97,7 +97,7 @@ const getData = async () => {
     const lastDate = new Date(nowYear, nowMonth, 0); //현재 날짜의 말일
     const setDayLeft = lastDate.getDate() - nowDay; // 남은 날짜 계산
 
-    return setDayLeft;
+    return setDayLeft + 1;
   }
   // 날짜 텍스트 바꾸기 '오늘','어제'
   const dateReplace = (date) => {
