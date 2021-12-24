@@ -1,7 +1,7 @@
 'use strict';
 
-let accountArr = [];
-let newGroupArrays = [];
+let accountArr = []; // 계좌별 데이터 배열
+let newGroupArrays = []; // 일일 사용내역 날짜별 배열
 
 const MyAccountUrl = "https://gist.githubusercontent.com/himchan94/a539fd8c884477a314044e8b423b9653/raw/045a98969d43f50cacd168835d4b83b985658478/myAccount.json"
 const GmAccountUrl = "https://gist.githubusercontent.com/himchan94/283d5837431bec8d5cb88a6e3525c35f/raw/12fda6b36c8dd6e29a9b878a236a363d4c85d561/grandmotherAccount.json"
@@ -16,7 +16,7 @@ const getData = async () => {
   .then((res) => res.json())
   .then((obj) => accountArr.push(obj));
 
-  // 드래그 방향 읽기
+  // 터치 방향 읽기
   let touchStartX = 0;
   let touchStartY = 0;
   const touchStart = (e) => {
@@ -88,24 +88,20 @@ const getData = async () => {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
   // 날짜 계산
+  const now = new Date(); // 현재 날짜
+  const nowYear = now.getFullYear(); // 현재 년
+  const nowMonth = now.getMonth() + 1; // 현재 월
+  const nowDay = now.getDate(); // 현재 날짜
+  // 말일기준 남은 날짜
   const dateLeft = () => {
-    const now = new Date(); // 현재 날짜
-    const nowYear = now.getFullYear(); // 현재 년
-    const nowMonth = now.getMonth() + 1; // 현재 월
-    const nowDay = now.getDate(); // 현재 날짜
     const lastDate = new Date(nowYear, nowMonth, 0); //현재 날짜의 말일
     const setDayLeft = lastDate.getDate() - nowDay; // 남은 날짜 계산
-    // console.log(dateLeft)
 
     return setDayLeft;
   }
-  // 날짜 바꾸기 '오늘','어제'
+  // 날짜 텍스트 바꾸기 '오늘','어제'
   const dateReplace = (date) => {
-    const nowDate = new Date(); // 현재 날짜
-    const overDate = new Date(date); // 현재 날짜
-    const nowYear = nowDate.getFullYear(); // 현재 년
-    const nowMonth = nowDate.getMonth() + 1; // 현재 월
-    const nowDay = nowDate.getDate(); // 현재 날짜
+    const jsonDate = new Date(date); // 데이터의 날짜
     const nowDateCombi = `${nowYear}-${nowMonth}-${nowDay}`
     const yesterdayDateCombi = `${nowYear}-${nowMonth}-${nowDay-1}`
     let setDate = date;
@@ -113,9 +109,10 @@ const getData = async () => {
       setDate = "오늘";
     }else if(yesterdayDateCombi === date){
       setDate = "어제";
-    }else if(nowDate < overDate){
+    }else if(now < jsonDate){
       setDate = "미래";
     }
+
     return setDate;
   }
   //계좌 화면 출력
@@ -222,7 +219,6 @@ const getData = async () => {
 
   //slider 구현
   const slider = () => {
-    // slider
     const slider = document.querySelector('.slider');
     const sliderInner = document.querySelector('.slider-inner');
     const slideLis = sliderInner.querySelectorAll('.account');
@@ -272,7 +268,6 @@ const getData = async () => {
           el.querySelector('.day-cont').scrollTop = 0;
           el.querySelector('.save-cont').scrollLeft = 0; 
         },500)
-        
       })
     }
   
@@ -284,7 +279,6 @@ const getData = async () => {
         sliderInner.style.left = `${moveDist}px`;
       }
       if (moveX > 100 || e.target.className === 'next') {
-      // if (e.target.className === 'next') {
         move(-1);
         if (currentNum === slideCloneLis.length - 1) {
           setTimeout(() => {
@@ -296,7 +290,6 @@ const getData = async () => {
         }
         removeOpen()
       } else if(moveX < -100 || e.target.className === 'prev') {
-      // } else {
         move(1);
         if (currentNum === 0) {
           setTimeout(() => {
